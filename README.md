@@ -22,4 +22,5 @@ The Manchester accommodation data and amenity locations are located in:
 ## Recent Updates
 - Improved the application's initial loading screen fade-out animation.
 - Restored the raw Manchester data as a `.json` file for easier exploration in the editor.
+- -_-
 

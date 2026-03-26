@@ -1,6 +1,6 @@
-# London / Manchester Accommodation Portfolio
+# London / Manchester Accommodation Explorer
 
-This project is a React web application designed to showcase a portfolio, including an explorer section for Manchester student accommodations.
+This project is a React web application designed as an explorer for Manchester student accommodations.
 
 ## Getting Started
 
@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-Navigate to `http://localhost:5173/` in your browser to view the main portfolio, or `http://localhost:5173/manchester` for the Manchester accommodation explorer.
+Navigate to `http://localhost:5173/` in your browser to view the Manchester accommodation explorer.
 
 ## Data
 

@@ -13,13 +13,6 @@ export default function ProjectsList() {
                     link: "https://buzzup-phi.vercel.app/"
                 },
                 {
-                    title: "PORTFOLIO SITE",
-                    hoverTitle: "RECURSION?",
-                    subTitle: "A website to showcase all my skills and work.",
-                    link: "https://alphacupcake10-iframe-test.vercel.app/",
-                    notBlank:true
-                },
-                {
                     title: "REGULARISE",
                     hoverTitle: "GET STUFF DONE",
                     subTitle: "Get Stuff Done.",

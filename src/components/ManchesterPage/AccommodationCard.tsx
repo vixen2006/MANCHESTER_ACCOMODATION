@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import type { Accommodation } from '../../data/manchesterData';
 
 interface AccommodationCardProps {
@@ -105,9 +106,9 @@ export default function AccommodationCard({ accommodation, index }: Accommodatio
         <p className="text-xs text-text/40 mt-3 line-clamp-2">{accommodation.about}</p>
 
         {/* CTA */}
-        <button className="glow-btn glow-btn-primary w-full mt-4 py-2.5 rounded-xl text-sm font-semibold">
+        <Link to={`/property/${accommodation.id}`} className="block glow-btn glow-btn-primary w-full mt-4 py-2.5 rounded-xl text-sm font-semibold text-center">
           View Details
-        </button>
+        </Link>
       </div>
     </div>
   );

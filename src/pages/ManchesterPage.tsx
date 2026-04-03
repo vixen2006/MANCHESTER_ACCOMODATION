@@ -2,6 +2,10 @@ import { useState, Suspense } from 'react';
 import ManchesterHero from '../components/ManchesterPage/ManchesterHero';
 import AmenityFilter from '../components/ManchesterPage/AmenityFilter';
 import AccommodationGrid from '../components/ManchesterPage/AccommodationGrid';
+import ImageCarousel from '../components/common/ImageCarousel';
+import LocationsGrid from '../components/common/LocationsGrid';
+import LifestyleBanner from '../components/ManchesterPage/LifestyleBanner';
+import JourneySection from '../components/ManchesterPage/JourneySection';
 import {
   ACCOMMODATIONS,
   getAccommodationsNearAmenity,
@@ -34,17 +38,25 @@ export default function ManchesterPage() {
         <ManchesterHero />
       </Suspense>
 
+      <ImageCarousel />
+
       <AmenityFilter onSelectAmenity={setSelectedAmenity} selectedAmenity={selectedAmenity} />
+
+      <LifestyleBanner />
 
       <AccommodationGrid
         accommodations={filteredAccommodations as any}
         title={gridTitle}
       />
 
+      <JourneySection />
+
+      <LocationsGrid />
+
       {/* Footer */}
-      <footer className="relative py-12 px-4 border-t border-white/5">
+      <footer className="relative py-12 px-4 border-t border-glass-border">
         <div className="max-w-6xl mx-auto text-center">
-          <h3 className="text-lg font-bold bg-gradient-to-r from-[#dc2626] to-[#ef4444] bg-clip-text text-transparent">
+          <h3 className="text-lg font-bold bg-gradient-to-r from-[#2563eb] to-[#3b82f6] bg-clip-text text-transparent">
             Manchester Student Accommodation
           </h3>
           <p className="text-text/30 text-sm mt-2">Find your perfect student home in Manchester</p>

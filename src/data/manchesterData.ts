@@ -1,6 +1,54 @@
 // Manchester Student Accommodation Data
 // Extracted from Manchester All Data.json with amenity landmarks
 
+export interface RoomType {
+  name: string;
+  size: string;
+  pricePerWeek: number;
+  amenities: string[];
+  image: string;
+}
+
+export interface TransportLink {
+  name: string;
+  distance: string;
+  type: 'train' | 'bus' | 'tram' | 'walk';
+  time: string;
+}
+
+export interface NearbyAttraction {
+  name: string;
+  category: string;
+  distance: string;
+}
+
+export interface FAQ {
+  question: string;
+  answer: string;
+}
+
+export interface Review {
+  name: string;
+  rating: number;
+  date: string;
+  text: string;
+}
+
+export interface PropertyDetails {
+  description: string;
+  totalBeds: number;
+  yearBuilt: string;
+  galleryImages: string[];
+  roomTypes: RoomType[];
+  amenities: { icon: string; label: string }[];
+  billsIncluded: string[];
+  transportLinks: TransportLink[];
+  nearbyAttractions: NearbyAttraction[];
+  faqs: FAQ[];
+  reviews: Review[];
+  specialOffers: string[];
+}
+
 export interface Accommodation {
   id: string;
   title: string;
@@ -17,6 +65,7 @@ export interface Accommodation {
   reviewCount: number;
   about: string;
   supplier: string;
+  details: PropertyDetails;
 }
 
 export interface AmenityLocation {
@@ -118,9 +167,44 @@ export const AMENITY_LOCATIONS: AmenityLocation[] = [
   { name: 'INTO Manchester', lat: 53.4738, lng: -2.2328, category: 'college' },
 ];
 
+import { PROPERTY_DETAILS } from './propertyDetails';
+
+// Default details fallback
+const defaultDetails: PropertyDetails = {
+  description: '',
+  totalBeds: 150,
+  yearBuilt: '2020',
+  galleryImages: [],
+  roomTypes: [],
+  amenities: [
+    { icon: '📚', label: 'Study Room' },
+    { icon: '🛋️', label: 'Common Room' },
+    { icon: '🧺', label: 'Laundry Room' },
+    { icon: '📶', label: 'WiFi Included' },
+    { icon: '🔒', label: 'Secure Entry' },
+  ],
+  billsIncluded: ['Electricity', 'Water', 'Gas', 'WiFi', 'Contents Insurance'],
+  transportLinks: [],
+  nearbyAttractions: [],
+  faqs: [],
+  reviews: [],
+  specialOffers: [],
+};
+
+// Helper to attach details
+function withDetails(acc: Omit<Accommodation, 'details'>): Accommodation {
+  const details = PROPERTY_DETAILS[acc.id];
+  return {
+    ...acc,
+    details: details
+      ? { ...details, description: details.description || acc.about }
+      : { ...defaultDetails, description: acc.about },
+  };
+}
+
 // 20 accommodations extracted from Manchester All Data.json
 export const ACCOMMODATIONS: Accommodation[] = [
-  {
+  withDetails({
     id: '1620964',
     title: 'Uit Canvas Manchester',
     address: 'River Street, Manchester M15 5GQ',
@@ -136,8 +220,8 @@ export const ACCOMMODATIONS: Accommodation[] = [
     reviewCount: 1,
     about: 'Modern living in the vibrant River Street district with contemporary design, comfort and style.',
     supplier: 'Uninist',
-  },
-  {
+  }),
+  withDetails({
     id: '1630317',
     title: 'Bss Heald Court',
     address: '6 Heald Grove, Manchester M14 4PE',
@@ -153,8 +237,8 @@ export const ACCOMMODATIONS: Accommodation[] = [
     reviewCount: 0,
     about: 'Modern hall of residence close to Manchester city centre and University of Manchester.',
     supplier: 'Britannia Student Services',
-  },
-  {
+  }),
+  withDetails({
     id: '1637520',
     title: 'Uit Riverside House',
     address: '100 Blackfriars Road, Manchester M3 7FU',
@@ -170,8 +254,8 @@ export const ACCOMMODATIONS: Accommodation[] = [
     reviewCount: 0,
     about: 'Situated adjacent to the River Irwell in the heart of Manchester\'s education hub.',
     supplier: 'Uninist',
-  },
-  {
+  }),
+  withDetails({
     id: '1641540',
     title: 'IconInc The Ainscow',
     address: 'Exchange Square, Manchester M4 3TR',
@@ -187,8 +271,8 @@ export const ACCOMMODATIONS: Accommodation[] = [
     reviewCount: 1,
     about: 'Upmarket student accommodation offering a unique living experience west of the city centre.',
     supplier: 'ICONINC',
-  },
-  {
+  }),
+  withDetails({
     id: '1657291',
     title: 'St Gabriels Court',
     address: 'Oxford Place, Manchester M14 5EE',
@@ -204,8 +288,8 @@ export const ACCOMMODATIONS: Accommodation[] = [
     reviewCount: 1,
     about: 'Luxury student accommodation where innovative design meets convenience on Oxford Place.',
     supplier: 'Vita Student',
-  },
-  {
+  }),
+  withDetails({
     id: '1660001',
     title: 'Vita Student First Street',
     address: 'Jack Rosenthal Street, Manchester M15 4RA',
@@ -221,8 +305,8 @@ export const ACCOMMODATIONS: Accommodation[] = [
     reviewCount: 12,
     about: 'Premium studio living in the heart of First Street with rooftop views.',
     supplier: 'Vita Student',
-  },
-  {
+  }),
+  withDetails({
     id: '1660002',
     title: 'iQ Kerria Apartments',
     address: '50 Oldham Street, Manchester M4 1LE',
@@ -238,8 +322,8 @@ export const ACCOMMODATIONS: Accommodation[] = [
     reviewCount: 8,
     about: 'Stylish Northern Quarter living close to Piccadilly and the vibrant nightlife.',
     supplier: 'iQ Student',
-  },
-  {
+  }),
+  withDetails({
     id: '1660003',
     title: 'Unite Students Parkway Gate',
     address: 'Chester Street, Manchester M15 6HB',
@@ -255,8 +339,8 @@ export const ACCOMMODATIONS: Accommodation[] = [
     reviewCount: 15,
     about: 'Right next to MMU with excellent facilities and city centre access.',
     supplier: 'Unite Students',
-  },
-  {
+  }),
+  withDetails({
     id: '1660004',
     title: 'Sanctuary Students Manchester',
     address: 'Great Marlborough St, Manchester M1 5JR',
@@ -272,8 +356,8 @@ export const ACCOMMODATIONS: Accommodation[] = [
     reviewCount: 6,
     about: 'Modern studios in the bustling Piccadilly area with 24/7 security.',
     supplier: 'Sanctuary Students',
-  },
-  {
+  }),
+  withDetails({
     id: '1660005',
     title: 'Fallowfield Campus',
     address: '342 Wilmslow Road, Manchester M14 6AF',
@@ -289,8 +373,8 @@ export const ACCOMMODATIONS: Accommodation[] = [
     reviewCount: 22,
     about: 'Affordable student living in the heart of Fallowfield\'s student village.',
     supplier: 'University of Manchester',
-  },
-  {
+  }),
+  withDetails({
     id: '1660006',
     title: 'Liberty Heights',
     address: '76 Boundary Lane, Manchester M15 6GS',
@@ -306,8 +390,8 @@ export const ACCOMMODATIONS: Accommodation[] = [
     reviewCount: 9,
     about: 'Walking distance to both MMU and UoM with modern en-suite rooms.',
     supplier: 'Liberty Living',
-  },
-  {
+  }),
+  withDetails({
     id: '1660007',
     title: 'The Depot Student Village',
     address: 'Albion Street, Manchester M1 5LN',
@@ -323,8 +407,8 @@ export const ACCOMMODATIONS: Accommodation[] = [
     reviewCount: 4,
     about: 'Contemporary living in a converted historic depot near Piccadilly Station.',
     supplier: 'Fresh Student Living',
-  },
-  {
+  }),
+  withDetails({
     id: '1660008',
     title: 'Grafton Student Living',
     address: 'Grafton Street, Manchester M13 9WS',
@@ -340,8 +424,8 @@ export const ACCOMMODATIONS: Accommodation[] = [
     reviewCount: 11,
     about: 'Steps away from UoM campus in the heart of the university quarter.',
     supplier: 'Grafton Living',
-  },
-  {
+  }),
+  withDetails({
     id: '1660009',
     title: 'Salford Quays Residence',
     address: 'Erie Basin, Salford M50 3XB',
@@ -357,8 +441,8 @@ export const ACCOMMODATIONS: Accommodation[] = [
     reviewCount: 7,
     about: 'Waterfront living at Salford Quays with MediaCityUK at your doorstep.',
     supplier: 'Campus Living',
-  },
-  {
+  }),
+  withDetails({
     id: '1660010',
     title: 'Wilmslow Park',
     address: '180 Wilmslow Road, Manchester M14 6LA',
@@ -374,8 +458,8 @@ export const ACCOMMODATIONS: Accommodation[] = [
     reviewCount: 5,
     about: 'On the famous Wilmslow Road corridor, surrounded by shops and restaurants.',
     supplier: 'Student Roost',
-  },
-  {
+  }),
+  withDetails({
     id: '1660011',
     title: 'Victoria Point',
     address: 'Victoria Street, Manchester M3 1WB',
@@ -391,8 +475,8 @@ export const ACCOMMODATIONS: Accommodation[] = [
     reviewCount: 3,
     about: 'Luxury high-rise studios with panoramic city views near Victoria Station.',
     supplier: 'Prestige Student',
-  },
-  {
+  }),
+  withDetails({
     id: '1660012',
     title: 'Circle Square Studios',
     address: 'Nobel Way, Manchester M1 7FA',
@@ -408,8 +492,8 @@ export const ACCOMMODATIONS: Accommodation[] = [
     reviewCount: 14,
     about: 'Brand new development on the former BBC site with cutting-edge design.',
     supplier: 'Bruntwood',
-  },
-  {
+  }),
+  withDetails({
     id: '1660013',
     title: 'Oxford Court',
     address: '68 Oxford Street, Manchester M1 5EJ',
@@ -425,8 +509,8 @@ export const ACCOMMODATIONS: Accommodation[] = [
     reviewCount: 10,
     about: 'Central Manchester location on Oxford Street with vibrant nightlife nearby.',
     supplier: 'CRM Students',
-  },
-  {
+  }),
+  withDetails({
     id: '1660014',
     title: 'Moss Lane Studios',
     address: 'Moss Lane East, Manchester M14 4BX',
@@ -442,8 +526,8 @@ export const ACCOMMODATIONS: Accommodation[] = [
     reviewCount: 6,
     about: 'Quiet residential area with easy access to Rusholme\'s famous Curry Mile.',
     supplier: 'Homes for Students',
-  },
-  {
+  }),
+  withDetails({
     id: '1660015',
     title: 'One Cambridge Street',
     address: '1 Cambridge Street, Manchester M1 5GH',
@@ -459,7 +543,7 @@ export const ACCOMMODATIONS: Accommodation[] = [
     reviewCount: 18,
     about: 'Ultra-premium studios with concierge service, rooftop terrace and cinema room.',
     supplier: 'Select Property Group',
-  },
+  }),
 ];
 
 export function getAccommodationsNearAmenity(

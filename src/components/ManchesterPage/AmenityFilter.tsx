@@ -53,25 +53,27 @@ export default function AmenityFilter({ onSelectAmenity, selectedAmenity }: Amen
     <section id="amenity-filter" className="relative py-16 md:py-24 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-4xl font-bold">
-            <span className="bg-gradient-to-r from-[#dc2626] to-[#ef4444] bg-clip-text text-transparent">
-              Find By Amenity
+          <h2 className="text-3xl md:text-5xl font-extrabold mb-4">
+            <span className="text-text">
+              Find By <span className="text-primary tracking-tight">Amenity</span>
             </span>
           </h2>
-          <p className="text-text/50 mt-3 text-sm md:text-base">
-            Select a category to discover accommodations within 5–10 km
+          <p className="text-text-secondary mt-3 text-sm md:text-lg max-w-2xl mx-auto">
+            Select a category below to discover premium accommodations within close proximity to your favorite lifestyle spots.
           </p>
         </div>
 
         {/* Category Buttons */}
-        <div ref={buttonsRef} className="flex flex-wrap justify-center gap-3 md:gap-4">
+        <div ref={buttonsRef} className="flex flex-wrap justify-center gap-3 md:gap-4 max-w-4xl mx-auto">
           {AMENITY_CATEGORIES.map((cat) => (
             <button
               key={cat.key}
               onClick={() => handleCategoryClick(cat.key)}
-              className={`glow-btn ${
-                activeCategory === cat.key ? 'glow-btn-active' : 'glow-btn-outline'
-              } px-5 py-3 md:px-7 md:py-4 rounded-xl text-sm md:text-base font-medium flex items-center gap-2 transition-all duration-300`}
+              className={`px-5 py-3 md:px-6 md:py-3 rounded-full text-sm font-semibold flex items-center gap-2 transition-all duration-300 ${
+                activeCategory === cat.key 
+                  ? 'bg-primary text-white shadow-lg shadow-primary/30 scale-105 border border-primary' 
+                  : 'glass-card text-text border border-glass-border hover:border-primary/50 hover:bg-primary/5'
+              }`}
             >
               <span className="text-lg">{cat.icon}</span>
               <span>{cat.label}</span>
@@ -81,24 +83,28 @@ export default function AmenityFilter({ onSelectAmenity, selectedAmenity }: Amen
 
         {/* Dropdown Locations */}
         {dropdownOpen && activeCategory && (
-          <div ref={dropdownRef} className="mt-8">
-            <div className="max-w-3xl mx-auto glass-card rounded-2xl p-6">
-              <h3 className="text-sm font-semibold text-text/40 uppercase tracking-widest mb-4">
-                {AMENITY_CATEGORIES.find((c) => c.key === activeCategory)?.icon}{' '}
-                {AMENITY_CATEGORIES.find((c) => c.key === activeCategory)?.label} in Manchester
+          <div ref={dropdownRef} className="mt-8 relative z-20">
+            <div className="max-w-4xl mx-auto glass-card rounded-3xl p-8 border border-glass-border shadow-2xl relative overflow-hidden">
+               {/* Background Glow */}
+               <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[80px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/3"></div>
+
+              <h3 className="text-xs font-bold text-primary uppercase tracking-widest mb-6 flex items-center gap-2">
+                <span className="text-xl">{AMENITY_CATEGORIES.find((c) => c.key === activeCategory)?.icon}</span>
+                {AMENITY_CATEGORIES.find((c) => c.key === activeCategory)?.label} Locations
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 relative z-10">
                 {locations.map((loc) => (
                   <button
                     key={loc.name}
                     onClick={() => handleLocationClick(loc)}
-                    className={`text-left p-3 rounded-xl transition-all duration-300 ${
+                    className={`text-left p-4 rounded-xl transition-all duration-300 flex items-center justify-between group ${
                       selectedAmenity?.name === loc.name
-                        ? 'bg-[#dc2626]/30 border border-[#ef4444]/50 shadow-[0_0_15px_rgba(239,68,68,0.2)]'
-                        : 'bg-white/5 border border-white/10 hover:border-[#ef4444]/30 hover:bg-white/10'
+                        ? 'bg-primary/10 border border-primary/50 shadow-[0_0_15px_rgba(37,99,235,0.15)] ring-1 ring-primary'
+                        : 'bg-background/40 border border-glass-border hover:border-primary/40 hover:bg-primary/5'
                     }`}
                   >
-                    <span className="text-sm font-medium text-text/80">{loc.name}</span>
+                    <span className={`text-sm font-semibold transition-colors ${selectedAmenity?.name === loc.name ? 'text-primary' : 'text-text group-hover:text-primary/80'}`}>{loc.name}</span>
+                    <span className={`text-xs opacity-0 transition-opacity ${selectedAmenity?.name === loc.name ? 'opacity-100 text-primary' : 'group-hover:opacity-50'}`}>✓</span>
                   </button>
                 ))}
               </div>
@@ -107,20 +113,20 @@ export default function AmenityFilter({ onSelectAmenity, selectedAmenity }: Amen
         )}
 
         {selectedAmenity && (
-          <div className="mt-6 text-center">
-            <p className="text-text/50 text-sm">
-              Showing accommodations near{' '}
-              <span className="text-[#ef4444] font-semibold">{selectedAmenity.name}</span>
+          <div className="mt-8 text-center bg-primary/5 border border-primary/20 rounded-full px-6 py-3 inline-flex items-center gap-4 mx-auto w-auto absolute left-1/2 -translate-x-1/2">
+            <p className="text-text-secondary text-sm font-medium">
+              Showing spots near <span className="text-primary font-bold">{selectedAmenity.name}</span>
             </p>
+            <div className="w-px h-4 bg-primary/30"></div>
             <button
               onClick={() => {
                 onSelectAmenity(null);
                 setActiveCategory(null);
                 setDropdownOpen(false);
               }}
-              className="mt-2 text-xs text-text/30 underline hover:text-text/60 transition-colors"
+              className="text-xs font-bold text-text-secondary hover:text-primary transition-colors uppercase tracking-wider"
             >
-              Clear filter
+              Clear Filter ✕
             </button>
           </div>
         )}

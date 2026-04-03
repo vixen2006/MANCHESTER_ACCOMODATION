@@ -31,7 +31,7 @@ function Building({ position, height, width, depth, color }: {
         <meshStandardMaterial color={color} transparent opacity={0.4} />
       </mesh>
       <lineSegments ref={edgesRef} position={position} geometry={edges}>
-        <lineBasicMaterial color="#ef4444" transparent opacity={0.8} />
+        <lineBasicMaterial color="#3b82f6" transparent opacity={0.8} />
       </lineSegments>
     </group>
   );
@@ -57,7 +57,7 @@ function CityBuildings() {
       const depth = 0.2 + ((i * 11 + seed) % 5) * 0.1;
       const x = Math.cos(angle) * radius;
       const z = Math.sin(angle) * radius;
-      const colors = ['#1a0a0a', '#2b0d0d', '#1e0808', '#330f0f', '#120606'];
+      const colors = ['#0a1a2a', '#0d1b2b', '#08141e', '#0f2333', '#061219'];
       const color = colors[i % colors.length];
       arr.push({
         position: [x, height / 2 - 1, z] as [number, number, number],
@@ -110,7 +110,7 @@ function FloatingParticles() {
           itemSize={3}
         />
       </bufferGeometry>
-      <pointsMaterial size={0.03} color="#ef4444" transparent opacity={0.6} sizeAttenuation />
+      <pointsMaterial size={0.03} color="#3b82f6" transparent opacity={0.6} sizeAttenuation />
     </points>
   );
 }
@@ -119,8 +119,8 @@ function CitySceneContent() {
   return (
     <>
       <ambientLight intensity={0.3} />
-      <directionalLight position={[5, 10, 5]} intensity={0.5} color="#dc2626" />
-      <pointLight position={[0, 5, 0]} intensity={1} color="#ef4444" distance={15} />
+      <directionalLight position={[5, 10, 5]} intensity={0.5} color="#2563eb" />
+      <pointLight position={[0, 5, 0]} intensity={1} color="#3b82f6" distance={15} />
 
       <Float speed={0.5} rotationIntensity={0.1} floatIntensity={0.3}>
         <CityBuildings />

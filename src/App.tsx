@@ -1,7 +1,9 @@
 import { Route, Routes } from "react-router"
 import Page404 from "./pages/Page404"
 import ManchesterPage from "./pages/ManchesterPage"
-
+import PropertyDetailPage from "./pages/PropertyDetailPage"
+import ThemeToggle from "./components/common/ThemeToggle"
+import { ThemeProvider } from "./contexts/ThemeContext"
 import { registerSW } from "virtual:pwa-register";
 import { useModal } from "./contexts/ModalContext";
 import { useEffect, useState } from "react"
@@ -31,12 +33,14 @@ function App() {
 
 
     return (
-        <>
+        <ThemeProvider>
+            <ThemeToggle />
             <Routes>
                 <Route path="/" element={<ManchesterPage />} />
+                <Route path="/property/:id" element={<PropertyDetailPage />} />
                 <Route path="/*" element={<Page404 />} />
             </Routes>
-        </>
+        </ThemeProvider>
     )
 }
 

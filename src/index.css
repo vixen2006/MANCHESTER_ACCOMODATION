@@ -3,13 +3,37 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --bg-primary: #f8f6f0;
+  --bg-secondary: #f0ece1;
+  --text-primary: #2d2a26;
+  --text-secondary: #5c5850;
+  --accent-primary: #3b82f6; /* Vibrant Blue */
+  --accent-secondary: #2563eb;
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.05);
+  --glow-shadow: rgba(59, 130, 246, 0.3);
+}
+
+.dark {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #121212;
+  --text-primary: #e7ebf3;
+  --text-secondary: #a0aab2;
+  --accent-primary: #2563eb;
+  --accent-secondary: #3b82f6;
+  --glass-bg: rgba(15, 23, 42, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glow-shadow: rgba(37, 99, 235, 0.4);
+}
+
 *
 {
   /* outline: solid red 2px; */
 }
 body
 {
-  @apply bg-background text-text font-poppins;
+  @apply bg-background text-text font-poppins transition-colors duration-300;
 }
 .fill-hover
 {
@@ -162,68 +186,69 @@ body
 }
 
 .glow-btn-primary {
-  background: linear-gradient(135deg, #dc2626, #ef4444);
-  color: #e7ebf3;
-  box-shadow: 0 0 15px rgba(220, 38, 38, 0.4), 0 0 30px rgba(239, 68, 68, 0.2);
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: #fff;
+  box-shadow: 0 0 15px var(--glow-shadow), 0 0 30px var(--glow-shadow);
 }
 
 .glow-btn-primary:hover {
-  box-shadow: 0 0 20px rgba(220, 38, 38, 0.6), 0 0 40px rgba(239, 68, 68, 0.4), 0 0 60px rgba(239, 68, 68, 0.2);
+  box-shadow: 0 0 20px var(--glow-shadow), 0 0 40px var(--glow-shadow), 0 0 60px var(--glow-shadow);
   transform: translateY(-2px);
 }
 
 .glow-btn-outline {
-  background: rgba(30, 15, 15, 0.6);
-  color: #e7ebf3;
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  box-shadow: 0 0 8px rgba(239, 68, 68, 0.1);
+  background: var(--glass-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--accent-primary);
+  box-shadow: 0 0 8px var(--glow-shadow);
   backdrop-filter: blur(10px);
 }
 
 .glow-btn-outline:hover {
-  border-color: rgba(239, 68, 68, 0.7);
-  box-shadow: 0 0 15px rgba(239, 68, 68, 0.3), 0 0 30px rgba(220, 38, 38, 0.15);
-  background: rgba(30, 15, 15, 0.8);
+  border-color: rgba(59, 130, 246, 0.7);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.3), 0 0 30px rgba(37, 99, 235, 0.15);
+  background: rgba(15, 23, 42, 0.8);
   transform: translateY(-2px);
 }
 
 .glow-btn-active {
-  background: linear-gradient(135deg, rgba(220, 38, 38, 0.3), rgba(239, 68, 68, 0.2));
-  color: #ef4444;
-  border: 1px solid rgba(239, 68, 68, 0.6);
-  box-shadow: 0 0 20px rgba(239, 68, 68, 0.3), 0 0 40px rgba(220, 38, 38, 0.15), inset 0 0 15px rgba(239, 68, 68, 0.1);
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.3), rgba(59, 130, 246, 0.2));
+  color: #3b82f6;
+  border: 1px solid rgba(59, 130, 246, 0.6);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), 0 0 40px rgba(37, 99, 235, 0.15), inset 0 0 15px rgba(59, 130, 246, 0.1);
   backdrop-filter: blur(10px);
   animation: glowPulse 2s ease-in-out infinite;
 }
 
 @keyframes glowPulse {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(239, 68, 68, 0.3), 0 0 40px rgba(220, 38, 38, 0.15), inset 0 0 15px rgba(239, 68, 68, 0.1);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), 0 0 40px rgba(37, 99, 235, 0.15), inset 0 0 15px rgba(59, 130, 246, 0.1);
   }
   50% {
-    box-shadow: 0 0 25px rgba(239, 68, 68, 0.5), 0 0 50px rgba(220, 38, 38, 0.25), inset 0 0 20px rgba(239, 68, 68, 0.15);
+    box-shadow: 0 0 25px rgba(59, 130, 246, 0.5), 0 0 50px rgba(37, 99, 235, 0.25), inset 0 0 20px rgba(59, 130, 246, 0.15);
   }
 }
 
 /* Glassmorphism Card */
 .glass-card {
-  background: rgba(30, 15, 15, 0.6);
+  background: var(--glass-bg);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .glass-badge {
-  background: rgba(10, 16, 21, 0.8);
+  background: var(--glass-bg);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
 }
 
 /* Accommodation Card */
 .accommodation-card {
-  background: rgba(20, 10, 10, 0.5);
+  background: var(--glass-bg);
   backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--glass-border);
   border-radius: 1rem;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -231,11 +256,11 @@ body
 }
 
 .accommodation-card:hover {
-  border-color: rgba(239, 68, 68, 0.4);
+  border-color: var(--accent-primary);
   box-shadow:
-    0 0 20px rgba(239, 68, 68, 0.15),
-    0 0 40px rgba(220, 38, 38, 0.1),
-    0 20px 60px rgba(0, 0, 0, 0.4);
+    0 0 20px var(--glow-shadow),
+    0 0 40px var(--glow-shadow),
+    0 20px 60px rgba(0, 0, 0, 0.15);
 }
 
 @keyframes cardFadeIn {
@@ -253,7 +278,7 @@ body
 .scroll-indicator {
   width: 24px;
   height: 40px;
-  border: 2px solid rgba(239, 68, 68, 0.4);
+  border: 2px solid rgba(59, 130, 246, 0.4);
   border-radius: 12px;
   display: flex;
   justify-content: center;
@@ -263,7 +288,7 @@ body
 .scroll-dot {
   width: 4px;
   height: 8px;
-  background: #ef4444;
+  background: #3b82f6;
   border-radius: 2px;
   animation: scrollBounce 1.5s ease-in-out infinite;
 }
@@ -283,8 +308,8 @@ body
 .loading-spinner {
   width: 40px;
   height: 40px;
-  border: 3px solid rgba(239, 68, 68, 0.2);
-  border-top-color: #ef4444;
+  border: 3px solid rgba(59, 130, 246, 0.2);
+  border-top-color: #3b82f6;
   border-radius: 50%;
   animation: spinLoader 0.8s linear infinite;
   margin: 0 auto;
@@ -306,7 +331,8 @@ body
 
 /* Manchester page background */
 .manchester-page {
-  background: radial-gradient(ellipse at 50% 0%, rgba(220, 38, 38, 0.08) 0%, transparent 60%),
-              radial-gradient(ellipse at 80% 50%, rgba(239, 68, 68, 0.05) 0%, transparent 50%),
-              #0a0a0a;
+  background: radial-gradient(ellipse at 50% 0%, var(--glow-shadow) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 50%, var(--glow-shadow) 0%, transparent 50%),
+              var(--bg-primary);
+  transition: background 0.3s ease;
 }

@@ -4,14 +4,18 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        'text': '#e7ebf3',
-        'background': '#0a1015',
-        'primary': '#0d64c1',
-        'secondary': '#0d1e2b',
-        'accent': '#0a9ed5',
+        'text': 'var(--text-primary)',
+        'text-secondary': 'var(--text-secondary)',
+        'background': 'var(--bg-primary)',
+        'bg-secondary': 'var(--bg-secondary)',
+        'primary': 'var(--accent-primary)',
+        'secondary': 'var(--accent-secondary)',
+        'glass': 'var(--glass-bg)',
+        'glass-border': 'var(--glass-border)',
       },
       fontFamily: {
         'poppins': ['Poppins', 'sans-serif']

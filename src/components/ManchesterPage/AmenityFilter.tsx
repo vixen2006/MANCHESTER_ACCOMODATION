@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
+import FocusCards from '../ui/focus-cards';
 import {
   AMENITY_CATEGORIES,
   getAmenitiesByCategory,
@@ -11,6 +12,23 @@ interface AmenityFilterProps {
   onSelectAmenity: (amenity: AmenityLocation | null) => void;
   selectedAmenity: AmenityLocation | null;
 }
+
+const CATEGORY_IMAGES: Record<string, string> = {
+  college: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=800",
+  shopping: "/assets/amenities/mall.png",
+  gym: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800",
+  nightlife: "/assets/amenities/club.jpg",
+  transport: "https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?q=80&w=800",
+  hospital: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=800",
+  food: "/assets/amenities/cafe.png",
+  park: "https://images.unsplash.com/photo-1519331379826-f10be5486c6f?q=80&w=800",
+  clubs: "/assets/amenities/club.jpg",
+  cafes: "/assets/amenities/cafe.png",
+  library: "/assets/amenities/library.png",
+  malls: "/assets/amenities/mall.png",
+  funzones: "/assets/amenities/funzone.png",
+  convenience: "https://images.unsplash.com/photo-1534723452862-4c874018d66d?q=80&w=800" // Placeholder for Stores (Image 6)
+};
 
 export default function AmenityFilter({ onSelectAmenity, selectedAmenity }: AmenityFilterProps) {
   const [activeCategory, setActiveCategory] = useState<AmenityCategory | null>('college');
@@ -45,6 +63,13 @@ export default function AmenityFilter({ onSelectAmenity, selectedAmenity }: Amen
 
   const locations = activeCategory ? getAmenitiesByCategory(activeCategory) : [];
 
+  const mappedCards = AMENITY_CATEGORIES.map(cat => ({
+    key: cat.key,
+    title: cat.label,
+    icon: cat.icon,
+    src: CATEGORY_IMAGES[cat.key] || CATEGORY_IMAGES.college,
+  }));
+
   return (
     <section id="amenity-filter" className="relative py-20 md:py-28 px-4 overflow-hidden">
       {/* Funky Background elements */}
@@ -62,47 +87,13 @@ export default function AmenityFilter({ onSelectAmenity, selectedAmenity }: Amen
           </p>
         </div>
 
-        {/* Funky Category Grid */}
-        <div ref={buttonsRef} className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto">
-          {AMENITY_CATEGORIES.map((cat) => {
-            const isActive = activeCategory === cat.key;
-            return (
-              <button
-                key={cat.key}
-                onClick={() => handleCategoryClick(cat.key)}
-                className={`group relative overflow-hidden flex flex-col items-center justify-center p-6 md:p-8 rounded-3xl transition-all duration-500 transform ${
-                  isActive 
-                    ? 'scale-[1.02] -translate-y-2 border-primary shadow-[0_15px_40px_var(--glow-shadow)]' 
-                    : 'hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(0,0,0,0.1)] hover:border-primary/40 glass-card border-glass-border'
-                }`}
-              >
-                {/* Active state animated background */}
-                <div className={`absolute inset-0 transition-opacity duration-500 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent"></div>
-                  <div className="absolute -top-10 -right-10 w-24 h-24 bg-primary/30 blur-[20px] rounded-full"></div>
-                </div>
-
-                {/* Content */}
-                <div className="relative z-10 flex flex-col items-center gap-4">
-                  <div className={`w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center text-3xl md:text-4xl transition-all duration-500 ease-out group-hover:scale-110 group-hover:rotate-6 ${
-                    isActive ? 'bg-primary text-white shadow-lg shadow-primary/40' : 'bg-background/50 backdrop-blur-md shadow-sm border border-glass-border drop-shadow-sm'
-                  }`}>
-                    {cat.icon}
-                  </div>
-                  <span className={`font-bold tracking-wide transition-colors duration-300 text-sm md:text-base ${
-                    isActive ? 'text-primary' : 'text-text group-hover:text-primary/80'
-                  }`}>
-                    {cat.label}
-                  </span>
-                </div>
-
-                {/* Subtle border handling (non-active) */}
-                {!isActive && (
-                   <div className="absolute inset-0 rounded-3xl border border-white/10 dark:border-white/5 pointer-events-none group-hover:border-primary/20 transition-colors duration-500"></div>
-                )}
-              </button>
-            );
-          })}
+        {/* Aceternity Focus Cards UI */}
+        <div ref={buttonsRef} className="w-full">
+          <FocusCards 
+            cards={mappedCards} 
+            activeCardKey={activeCategory} 
+            onCardClick={(key) => handleCategoryClick(key as AmenityCategory)} 
+          />
         </div>
 
         {/* Dropdown Locations */}

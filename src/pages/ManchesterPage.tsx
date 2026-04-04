@@ -2,10 +2,10 @@ import { useState, Suspense } from 'react';
 import ManchesterHero from '../components/ManchesterPage/ManchesterHero';
 import AmenityFilter from '../components/ManchesterPage/AmenityFilter';
 import AccommodationGrid from '../components/ManchesterPage/AccommodationGrid';
-import ImageCarousel from '../components/common/ImageCarousel';
-import LocationsGrid from '../components/common/LocationsGrid';
 import LifestyleBanner from '../components/ManchesterPage/LifestyleBanner';
 import JourneySection from '../components/ManchesterPage/JourneySection';
+import InteractiveMapSection from '../components/ManchesterPage/InteractiveMapSection';
+import AmenitiesGrid from '../components/common/AmenitiesGrid';
 import {
   ACCOMMODATIONS,
   getAccommodationsNearAmenity,
@@ -38,7 +38,7 @@ export default function ManchesterPage() {
         <ManchesterHero />
       </Suspense>
 
-      <ImageCarousel />
+      <AmenitiesGrid />
 
       <AmenityFilter onSelectAmenity={setSelectedAmenity} selectedAmenity={selectedAmenity} />
 
@@ -51,7 +51,7 @@ export default function ManchesterPage() {
 
       <JourneySection />
 
-      <LocationsGrid />
+      <InteractiveMapSection />
 
       {/* Footer */}
       <footer className="relative py-12 px-4 border-t border-glass-border">

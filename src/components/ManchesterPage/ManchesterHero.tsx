@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import CityScene from './CityScene';
+import ParallaxGalleryScene from './ParallaxGalleryScene';
 
 export default function ManchesterHero() {
   const titleRef = useRef<HTMLDivElement>(null);
@@ -54,7 +54,7 @@ export default function ManchesterHero() {
   return (
     <section className="relative w-full h-screen overflow-hidden flex items-center justify-center">
       {/* 3D Background */}
-      <CityScene className="z-0" />
+      <ParallaxGalleryScene className="z-0" />
 
       {/* Gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0a1015] z-10 pointer-events-none" />

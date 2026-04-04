@@ -4,7 +4,7 @@ import CityScene from '../components/ManchesterPage/CityScene';
 import WhatsIncludedGrid from '../components/common/WhatsIncludedGrid';
 import FaqAccordion from '../components/common/FaqAccordion';
 import { ACCOMMODATIONS } from '../data/manchesterData';
-import type { Accommodation, RoomType } from '../data/manchesterData';
+import type { RoomType } from '../data/manchesterData';
 
 const SECTION_IDS = ['overview', 'rooms', 'amenities', 'gallery', 'location', 'reviews', 'faqs'] as const;
 const SECTION_LABELS: Record<string, string> = {
@@ -23,7 +23,7 @@ export default function PropertyDetailPage() {
   const [activeSection, setActiveSection] = useState<string>('overview');
   const [selectedRoom, setSelectedRoom] = useState<RoomType | null>(null);
   const [galleryIndex, setGalleryIndex] = useState(0);
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
   const accommodation = ACCOMMODATIONS.find((a) => a.id === id);

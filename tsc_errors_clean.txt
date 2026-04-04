@@ -1,0 +1,11 @@
+﻿src/components/common/FaqAccordion.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/components/common/ImageCarousel.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/components/common/ImageCarousel.tsx(1,25): error TS6133: 'useState' is declared but its value is never read.
+src/components/common/LocationsGrid.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/components/common/WhatsIncludedGrid.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/components/ManchesterPage/CityScene.tsx(77,19): error TS2783: 'key' is specified more than once, so this usage will be overwritten.
+src/components/ManchesterPage/JourneySection.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/components/ManchesterPage/LifestyleBanner.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/pages/PropertyDetailPage.tsx(7,15): error TS6196: 'Accommodation' is declared but never used.
+src/pages/PropertyDetailPage.tsx(26,10): error TS6133: 'openFaq' is declared but its value is never read.
+src/pages/PropertyDetailPage.tsx(26,19): error TS6133: 'setOpenFaq' is declared but its value is never read.

@@ -40,6 +40,8 @@ export default function ManchesterPage() {
 
       <AmenitiesGrid />
 
+      <InteractiveMapSection />
+
       <AmenityFilter onSelectAmenity={setSelectedAmenity} selectedAmenity={selectedAmenity} />
 
       <LifestyleBanner />
@@ -50,8 +52,6 @@ export default function ManchesterPage() {
       />
 
       <JourneySection />
-
-      <InteractiveMapSection />
 
       {/* Footer */}
       <footer className="relative py-12 px-4 border-t border-glass-border">

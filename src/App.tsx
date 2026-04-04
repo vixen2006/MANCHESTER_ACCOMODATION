@@ -8,6 +8,9 @@ import { registerSW } from "virtual:pwa-register";
 import { useModal } from "./contexts/ModalContext";
 import { useEffect, useState } from "react"
 
+import LondonPage from "./pages/LondonPage"
+import CityToggle from "./components/common/CityToggle"
+
 function App() {
 
     const modal = useModal();
@@ -26,17 +29,29 @@ function App() {
     const { isLoading, progress } = usePageLoadWaiter();
 
     if (isLoading) {
-        return <div>
-            {progress}
-        </div>
+        return (
+            <div className="h-screen w-full flex flex-col items-center justify-center bg-[#0a0a0a]">
+                <div className="w-64 h-1 bg-white/5 rounded-full overflow-hidden">
+                    <div 
+                        className="h-full bg-blue-600 transition-all duration-300 ease-out"
+                        style={{ width: `${progress}%` }}
+                    />
+                </div>
+                <p className="mt-4 text-white/20 text-[10px] uppercase tracking-[0.2em] font-medium">
+                    Initializing Experience {progress}%
+                </p>
+            </div>
+        )
     }
 
 
     return (
         <ThemeProvider>
             <ThemeToggle />
+            <CityToggle />
             <Routes>
                 <Route path="/" element={<ManchesterPage />} />
+                <Route path="/london" element={<LondonPage />} />
                 <Route path="/property/:id" element={<PropertyDetailPage />} />
                 <Route path="/*" element={<Page404 />} />
             </Routes>

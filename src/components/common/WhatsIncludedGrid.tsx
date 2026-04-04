@@ -1,3 +1,4 @@
+import React from 'react';
 
 const includedItems = [
   { title: "All Bills Included", icon: "💎" },

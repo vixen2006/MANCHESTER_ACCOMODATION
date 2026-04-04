@@ -74,7 +74,7 @@ function CityBuildings() {
   return (
     <group ref={groupRef}>
       {buildings.map((b) => (
-        <Building {...b} />
+        <Building key={b.key} {...b} />
       ))}
     </group>
   );

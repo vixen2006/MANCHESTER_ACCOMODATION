@@ -1,0 +1,116 @@
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import LondonParallaxGalleryScene from './LondonParallaxGalleryScene';
+
+export default function LondonHero() {
+  const titleRef = useRef<HTMLDivElement>(null);
+  const subtitleRef = useRef<HTMLDivElement>(null);
+  const ratingRef = useRef<HTMLDivElement>(null);
+  const taglineRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+
+      tl.from(titleRef.current, {
+        y: 80,
+        opacity: 0,
+        duration: 1.5,
+        delay: 0.3,
+      })
+        .from(
+          ratingRef.current,
+          {
+            scale: 0,
+            opacity: 0,
+            duration: 1.2,
+            ease: 'back.out(1.7)',
+          },
+          '-=0.8'
+        )
+        .from(
+          subtitleRef.current,
+          {
+            y: 40,
+            opacity: 0,
+            duration: 1,
+          },
+          '-=0.6'
+        )
+        .from(
+          taglineRef.current,
+          {
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+          },
+          '-=0.4'
+        );
+    });
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section className="relative w-full h-screen overflow-hidden flex items-center justify-center">
+      {/* 3D Background */}
+      <LondonParallaxGalleryScene className="z-0" />
+
+      {/* Gradient overlays */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0f0a05] z-10 pointer-events-none" />
+      <div className="absolute inset-0 bg-[#0f0a05]/40 z-5 pointer-events-none" />
+
+      {/* Content */}
+      <div className="relative z-20 text-center px-4 max-w-4xl mx-auto">
+        <div ref={titleRef}>
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold uppercase tracking-wider">
+            <span className="bg-gradient-to-r from-[#d97706] via-[#f59e0b] to-[#d97706] bg-clip-text text-transparent">
+              London
+            </span>
+          </h1>
+          <p className="text-lg sm:text-xl md:text-2xl text-text/70 mt-2 font-light tracking-wide italic">
+             Capital of Modern Living
+          </p>
+        </div>
+
+        <div ref={ratingRef} className="mt-8 inline-flex items-center gap-4">
+          <div className="rating-badge border-amber-500/20 bg-amber-500/5">
+            <span className="text-5xl md:text-7xl font-black bg-gradient-to-b from-[#f59e0b] to-[#d97706] bg-clip-text text-transparent">
+              9
+            </span>
+            <span className="text-2xl md:text-3xl font-bold text-text/30">/10</span>
+          </div>
+        </div>
+
+        <div ref={subtitleRef} className="mt-4">
+          <p className="text-base sm:text-lg md:text-xl text-text/60 font-medium">
+            Discover <span className="text-[#f59e0b] font-bold">Premium Student Co-living</span> in East London
+          </p>
+        </div>
+
+        <div ref={taglineRef} className="mt-8">
+          <p className="text-sm md:text-base text-text/40 max-w-xl mx-auto">
+            From the iconic Ark Canary Wharf to boutique Chapter studios — find your home in the heart of London's most vibrant districts.
+          </p>
+          <div className="mt-6 flex justify-center">
+            <button
+              onClick={() => {
+                document.getElementById('amenity-filter')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="glow-btn px-8 py-3 rounded-full text-sm font-semibold uppercase tracking-widest bg-amber-600 hover:bg-amber-500 shadow-[0_0_20px_rgba(245,158,11,0.3)] transition-all duration-300"
+            >
+              Explore London
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
+        <div className="scroll-indicator border-amber-500/30">
+          <div className="scroll-dot bg-amber-500" />
+        </div>
+      </div>
+    </section>
+  );
+}

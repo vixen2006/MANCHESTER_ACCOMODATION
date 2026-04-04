@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 const faqs = [
   { q: "Are pets allowed?", a: "Unfortunately, pets are not permitted in the accommodation. The only exception is registered assistance animals." },

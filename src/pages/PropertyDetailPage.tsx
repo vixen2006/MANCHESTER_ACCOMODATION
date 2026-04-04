@@ -5,6 +5,7 @@ import WhatsIncludedGrid from '../components/common/WhatsIncludedGrid';
 import FaqAccordion from '../components/common/FaqAccordion';
 import { ACCOMMODATIONS } from '../data/manchesterData';
 import type { RoomType } from '../data/manchesterData';
+import { LONDON_ACCOMMODATIONS } from '../data/londonData';
 
 const SECTION_IDS = ['overview', 'rooms', 'amenities', 'gallery', 'location', 'reviews', 'faqs'] as const;
 const SECTION_LABELS: Record<string, string> = {
@@ -23,10 +24,12 @@ export default function PropertyDetailPage() {
   const [activeSection, setActiveSection] = useState<string>('overview');
   const [selectedRoom, setSelectedRoom] = useState<RoomType | null>(null);
   const [galleryIndex, setGalleryIndex] = useState(0);
-
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
-  const accommodation = ACCOMMODATIONS.find((a) => a.id === id);
+  const manchesterAcc = ACCOMMODATIONS.find((a) => a.id === id);
+  const londonAcc = LONDON_ACCOMMODATIONS.find((a) => a.id === id);
+  const accommodation = manchesterAcc ?? londonAcc;
+  const isLondon = !manchesterAcc && !!londonAcc;
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -88,11 +91,11 @@ export default function PropertyDetailPage() {
 
         {/* Back button */}
         <button
-          onClick={() => navigate('/')}
+          onClick={() => navigate(isLondon ? '/london' : '/')}
           className="absolute top-6 left-6 z-20 glass-badge px-4 py-2 rounded-full flex items-center gap-2 hover:bg-white/10 transition-colors cursor-pointer"
         >
           <span className="text-lg">&#8592;</span>
-          <span className="text-sm font-medium">Back</span>
+          <span className="text-sm font-medium">{isLondon ? 'Back to London' : 'Back'}</span>
         </button>
 
         {/* Hero content */}
@@ -504,9 +507,9 @@ export default function PropertyDetailPage() {
       <footer className="relative py-12 px-4 border-t border-glass-border bg-bg-secondary mt-12 pb-24">
         <div className="max-w-6xl mx-auto text-center">
           <h3 className="text-xl font-black bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2">
-            Manchester Student Accommodation
+            {isLondon ? 'London' : 'Manchester'} Student Accommodation
           </h3>
-          <p className="text-text-secondary text-sm">Find your perfect student home in Manchester.</p>
+          <p className="text-text-secondary text-sm">Find your perfect student home in {isLondon ? 'London' : 'Manchester'}.</p>
         </div>
       </footer>
     </div>

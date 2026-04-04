@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
 const carouselImages = [
   "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80",

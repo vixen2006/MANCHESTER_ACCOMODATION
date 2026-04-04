@@ -2,7 +2,6 @@ import { Canvas } from '@react-three/fiber'
 import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import Cursor from '../common/Cursor'
 import { useEffect, useRef, useState } from 'react'
-import AbysalDescent from '../models/AbysalDescent'
 import UserModal from './UserModal'
 import { LeaderboardIcon , UserIcon , PlayIcon, ExitIcon} from './Icons'
 import Footer from '../Footer'
@@ -97,7 +96,6 @@ function LandingPage() {
                     camera={{ fov: 10, aspect: 1 }}
                     shadows
                 >
-                    <AbysalDescent scrollRef={scrollRef} />
                     <EffectComposer>
                             <Bloom mipmapBlur={!(typeof navigator !== 'undefined' && navigator.userAgent.includes('Macintosh'))} intensity={1.2} />
                     </EffectComposer>
